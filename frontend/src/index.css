@@ -1,0 +1,309 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --brand-maroon: #430000;
+  --brand-maroon-dark: #430000;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: #430000;
+  color: #ffffff;
+  font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Mobile & Tablet: Fluid, natural momentum scrolling with ample breathing room */
+@media (max-width: 1023px) {
+  html, body {
+    height: auto;
+    min-height: 100%;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .snap-wrapper {
+    height: auto;
+    min-height: 100%;
+    overflow-y: visible;
+    overflow-x: hidden;
+    scroll-snap-type: none;
+    scroll-behavior: smooth;
+  }
+  .snap-panel {
+    min-height: auto;
+    height: auto;
+    scroll-snap-align: none;
+    scroll-snap-stop: normal;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+    width: 100%;
+  }
+}
+
+/* Desktop: Sleek Apple-style mandatory viewport snapping */
+@media (min-width: 1024px) {
+  html, body {
+    height: 100%;
+    overflow: hidden;
+  }
+  .snap-wrapper {
+    height: 100dvh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+  }
+  .snap-panel {
+    min-height: 100dvh;
+    height: 100dvh;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 100%;
+  }
+}
+
+/* Subtle Custom Scrollbar */
+.snap-wrapper::-webkit-scrollbar {
+  width: 5px;
+}
+.snap-wrapper::-webkit-scrollbar-track {
+  background: #430000;
+}
+.snap-wrapper::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 9999px;
+}
+
+.font-brand {
+  font-family: 'Patrick Hand', cursive, system-ui, sans-serif;
+}
+
+.font-tech {
+  font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+}
+
+/* Hand-Drawn Sketchy Elements (matches mascot sketch style) */
+.sketch-border {
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  border-radius: 255px 18px 225px 20px / 20px 225px 18px 255px;
+  transition: all 0.2s ease;
+}
+
+.sketch-border-subtle {
+  border: 1.5px solid rgba(255, 255, 255, 0.6);
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+}
+
+/* Entire Header Hand-Drawn Sketchy Rectangle */
+.sketch-nav {
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  border-radius: 255px 16px 225px 18px / 18px 225px 16px 255px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+}
+
+.sketch-nav-full {
+  width: 100%;
+  border-bottom: 2.5px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+}
+
+/* Hand-Drawn Cards & Containers */
+.sketch-card {
+  border: 2px solid rgba(255, 255, 255, 0.75);
+  border-radius: 255px 18px 225px 18px / 18px 225px 18px 255px;
+  box-shadow: 2px 3px 0px rgba(0, 0, 0, 0.25);
+  transition: all 0.2s ease;
+}
+
+.sketch-card-subtle {
+  border: 1.5px solid rgba(255, 255, 255, 0.45);
+  border-radius: 255px 14px 225px 14px / 14px 225px 14px 255px;
+}
+
+/* Hand-Drawn Smartphone Chassis */
+.sketch-phone {
+  border: 2.8px solid rgba(255, 255, 255, 0.85);
+  border-radius: 46px 42px 48px 44px / 44px 48px 42px 46px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), 3px 4px 0px rgba(255, 255, 255, 0.15);
+  position: relative;
+  background-color: #430000;
+  padding: 6px 5px 8px 5px;
+  transition: all 0.2s ease;
+}
+
+.sketch-phone-screen {
+  border: 1.8px solid rgba(255, 255, 255, 0.45);
+  border-radius: 36px 34px 38px 34px / 34px 38px 34px 36px;
+  overflow: hidden;
+  background-color: #5b0000;
+}
+
+/* Hand-Drawn Buttons */
+.sketch-btn-white {
+  background-color: #ffffff;
+  color: #5b0000;
+  border: 2px solid #ffffff;
+  border-radius: 255px 20px 225px 20px / 20px 225px 20px 255px;
+  box-shadow: 2px 3px 0px rgba(0, 0, 0, 0.35);
+  transition: all 0.15s ease;
+}
+
+.sketch-btn-white:hover {
+  background-color: rgba(255, 255, 255, 0.92);
+  transform: translateY(-1px);
+  box-shadow: 2px 4px 0px rgba(0, 0, 0, 0.4);
+}
+
+.sketch-btn-white:active {
+  transform: translateY(1px);
+  box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.3);
+}
+
+.sketch-btn-outline {
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  border-radius: 255px 20px 225px 20px / 20px 225px 20px 255px;
+  box-shadow: 2px 3px 0px rgba(0, 0, 0, 0.25);
+  transition: all 0.15s ease;
+}
+
+.sketch-btn-outline:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  transform: translateY(-1px);
+}
+
+.sketch-btn-outline:active {
+  transform: translateY(1px);
+}
+
+/* Hand-Drawn Pills & Badges */
+.sketch-pill {
+  border: 1.5px solid rgba(255, 255, 255, 0.7);
+  border-radius: 255px 12px 225px 12px / 12px 225px 12px 255px;
+}
+
+/* Hand-Drawn Form Inputs */
+.sketch-input {
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 255px 14px 225px 14px / 14px 225px 14px 255px;
+  transition: border-color 0.2s ease;
+}
+
+.sketch-input:focus {
+  border-color: #ffffff;
+  outline: none;
+}
+
+/* Language font overrides */
+[dir="rtl"] {
+  font-family: 'Noto Sans Arabic', 'Space Grotesk', system-ui, sans-serif;
+}
+
+[lang="ml"] {
+  font-family: 'Manjari', 'Space Grotesk', system-ui, sans-serif;
+}
+
+/* Living Alive Mascot Animations */
+@keyframes mascotFloat {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-8px) rotate(1deg);
+  }
+  75% {
+    transform: translateY(-4px) rotate(-1deg);
+  }
+}
+
+@keyframes mascotShadow {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.45;
+  }
+  50% {
+    transform: scale(0.82);
+    opacity: 0.22;
+  }
+}
+
+@keyframes popBubble {
+  0% {
+    transform: scale(0.7) translateY(6px);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.04) translateY(-2px);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes jumpCheer {
+  0% { transform: translateY(0) scale(1) rotate(0deg); }
+  30% { transform: translateY(-24px) scale(1.08) rotate(-3deg); }
+  60% { transform: translateY(-10px) scale(1.04) rotate(2deg); }
+  100% { transform: translateY(0) scale(1) rotate(0deg); }
+}
+
+.animate-mascot-float {
+  animation: mascotFloat 4.2s ease-in-out infinite;
+}
+
+.animate-mascot-shadow {
+  animation: mascotShadow 4.2s ease-in-out infinite;
+}
+
+.animate-bubble-pop {
+  animation: popBubble 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.animate-jump-cheer {
+  animation: jumpCheer 0.65s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Sketched Speech Bubble with Organic Border and Tail */
+.sketch-bubble {
+  border: 1.8px solid rgba(255, 255, 255, 0.9);
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  background-color: #430000;
+  box-shadow: 2px 4px 14px rgba(0, 0, 0, 0.45);
+  position: relative;
+}
+
+.sketch-bubble-fork::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 28px;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 7px solid rgba(255, 255, 255, 0.9);
+}
+
+.sketch-bubble-knife::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  right: 28px;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 7px solid rgba(255, 255, 255, 0.9);
+}
