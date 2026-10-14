@@ -482,16 +482,6 @@ export default function MenuUploadDemo({ isOpen, onClose, onLaunchChat }) {
                   <SketchCoffee className="w-3.5 h-3.5" />
                   <span>1-Click Sample Menu</span>
                 </button>
-
-                <button
-                  disabled={isProcessing}
-                  onClick={() => setIsQrModalOpen(true)}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-amber-200 bg-amber-400/10 border border-amber-400/30 hover:bg-amber-400/20 transition-all ml-auto"
-                  title="Generate or print Table QR Cards"
-                >
-                  <span>🖨️</span>
-                  <span>Table QR Cards</span>
-                </button>
               </div>
 
               {/* In-Place Processing Loading State */}
