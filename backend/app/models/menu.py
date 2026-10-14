@@ -24,3 +24,21 @@ class MenuIngestionResponse(BaseModel):
     message: str = "Menu ingested successfully"
     extraction_engine: Optional[str] = "google_vision"  # "google_vision" | "local_ocr"
 
+class ConfirmMenuSaveRequest(BaseModel):
+    cafe_id: str = "demo-cafe"
+    cafe_name: Optional[str] = "Forkcast Artisan Café"
+    filename: Optional[str] = None
+    extraction_engine: Optional[str] = "google_vision"
+    categories: List[str]
+    items: List[DishItem]
+
+class MenuSaveResponse(BaseModel):
+    success: bool = True
+    menu_id: str
+    cafe_id: str
+    saved_dishes: int
+    categories: List[str]
+    message: str
+    database_type: str
+
+

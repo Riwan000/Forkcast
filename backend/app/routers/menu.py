@@ -1,11 +1,12 @@
 from typing import Annotated
 from fastapi import APIRouter, Depends, File, Form, HTTPException, UploadFile
 from pydantic import BaseModel
-from app.dependencies import get_menu_service
-from app.models.menu import MenuIngestionResponse
+from app.dependencies import get_menu_service, get_menu_db_service
+from app.models.menu import MenuIngestionResponse, ConfirmMenuSaveRequest, MenuSaveResponse
 from app.services.menu_service import MenuService
+from app.services.menu_db_service import MenuDatabaseService
 
-router = APIRouter(prefix="/api/menu", tags=["Menu Ingestion"])
+router = APIRouter(prefix="/api/menu", tags=["Menu Ingestion & Database"])
 
 class TextParseRequest(BaseModel):
     raw_text: str
@@ -76,3 +77,26 @@ def get_sample_menu(
     Basque Burnt Cheesecake - Caramelized crust with a molten vanilla core. (Veg, Dairy) ₹320
     """
     return menu_service.parse_menu(sample_text.strip(), cafe_id="sample-artisan", filename="sample_artisan_menu.txt")
+
+@router.post("/confirm-save", response_model=MenuSaveResponse)
+def confirm_and_save_menu(
+    payload: ConfirmMenuSaveRequest,
+    menu_db: Annotated[MenuDatabaseService, Depends(get_menu_db_service)],
+):
+    """Persist verified menu and enriched dishes into the PostgreSQL / Neon database."""
+    try:
+        return menu_db.save_verified_menu(payload)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Database save failed: {str(e)}")
+
+@router.get("/active/{cafe_id}")
+def get_active_cafe_menu(
+    cafe_id: str,
+    menu_db: Annotated[MenuDatabaseService, Depends(get_menu_db_service)],
+):
+    """Fetch the active menu and dishes for a café directly from the database."""
+    active = menu_db.get_active_menu(cafe_id=cafe_id)
+    if not active:
+        raise HTTPException(status_code=404, detail=f"No active menu found for café '{cafe_id}'")
+    return active
+
