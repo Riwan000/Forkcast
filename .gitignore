@@ -16,6 +16,19 @@ dist-ssr/
 build/
 *.local
 
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.env
+.env
+.env.*
+!.env.example
+!backend/.env.example
+.venv/
+venv/
+backend/crop_matcha.png
+
 # Environment variables and secrets
 .env
 .env.local

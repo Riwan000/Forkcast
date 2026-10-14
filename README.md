@@ -1,22 +1,22 @@
-# 🍴 FORKCAST
+# FORKCAST
 
 > **Less Order-Taking. More Hospitality.**  
 > An AI-first collaborative café ordering web application empowering waitstaff to deliver genuine hospitality by automating group ordering, dietary queries, and real-time bill splitting.
 
 ---
 
-## ✨ Features
+## Features
 
-- **⚡ Zero-Friction Table Onboarding**: Guests scan the table QR code on their own mobile devices to join the live table room—no app downloads required.
-- **🤖 Ambient AI Concierge**: Automatically answers dietary inquiries, suggests personalized dishes within a set table budget, and suppresses off-topic banter.
-- **🛍️ Collaborative Shared Cart**: Real-time group cart where guests can see who ordered what, mark shared plates, and specify custom chef notes.
-- **🧾 Instant Automated Bill-Split**: Automatically divides personal dishes and equally distributes shared appetizers/desserts per guest in real time.
-- **🎨 Hand-Drawn Artisanal Aesthetic**: Signature sketched ink on deep maroon (`#430000`) with ambient procedural topography, living character illustrations, and paper-textured UI components.
-- **🌐 Trilingual Support**: Seamless toggle between **English**, **العربية (Arabic - RTL)**, and **മലയാളം (Malayalam)**.
+- **Zero-Friction Table Onboarding**: Guests scan the table QR code on their own mobile devices to join the live table room—no app downloads required.
+- **Ambient AI Concierge**: Automatically answers dietary inquiries, suggests personalized dishes within a set table budget, and suppresses off-topic banter.
+- **Collaborative Shared Cart**: Real-time group cart where guests can see who ordered what, mark shared plates, and specify custom chef notes.
+- **Instant Automated Bill-Split**: Automatically divides personal dishes and equally distributes shared appetizers/desserts per guest in real time.
+- **Hand-Drawn Artisanal Aesthetic**: Signature sketched ink on deep maroon (`#430000`) with ambient procedural topography, living character illustrations, and paper-textured UI components.
+- **Trilingual Support**: Seamless toggle between **English**, **العربية (Arabic - RTL)**, and **മലയാളം (Malayalam)**.
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - **Frontend Framework**: [React 18](https://react.dev/) + [Vite](https://vitejs.dev/)
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/)
@@ -25,7 +25,7 @@
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -55,7 +55,7 @@
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 restaurant_menu_optimiser/
@@ -88,6 +88,6 @@ restaurant_menu_optimiser/
 
 ---
 
-## 📄 License
+## License
 
 Private & Proprietary. All rights reserved © 2026 FORKCAST.

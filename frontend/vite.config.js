@@ -105,7 +105,7 @@ function removeBackground(inputPngBuf) {
   let minX = width, maxX = 0, minY = height, maxY = 0;
   const fullRgba = Buffer.alloc(width * height * 4);
   let inPixelPos = 0;
-  let dstPos = 0;
+  dstPos = 0;
 
   for (let y = 0; y < height; y++) {
     for (let x = 0; x < width; x++) {

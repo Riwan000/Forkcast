@@ -4,6 +4,7 @@ import { forkcastLogo } from './logoData';
 import { hospitalitySketch } from './hospitalityData';
 import { cafeSketch } from './cafeData';
 import TopoField from './components/ui/topo-field';
+import MenuUploadDemo from './components/MenuUploadDemo';
 
 // Hook to crop transparent padding tightly so the fork & knife artwork fills its frame and displays big
 function useCroppedLogo(src) {
@@ -208,6 +209,7 @@ function LivingMascot({ src }) {
 export default function App() {
   const [lang, setLang] = useState('en');
   const [langOpen, setLangOpen] = useState(false);
+  const [isMenuUploadOpen, setIsMenuUploadOpen] = useState(false);
   const [demoTab, setDemoTab] = useState('chat');
   const [cartCount, setCartCount] = useState(3);
   const [waitlistSubmitted, setWaitlistSubmitted] = useState(false);
@@ -252,8 +254,17 @@ export default function App() {
         <TopoField className="w-full h-full" foodShape={true} speed={0.65} background="#430000" blur={1.2} />
       </div>
 
-      {/* FLOATING TOP-RIGHT LANGUAGE DROPDOWN */}
-      <div className="fixed top-3 sm:top-4 right-3 sm:right-5 rtl:right-auto rtl:left-3 sm:rtl:left-5 z-50">
+      {/* FLOATING TOP-RIGHT ACTIONS: DEMO BUTTON & LANGUAGE DROPDOWN */}
+      <div className="fixed top-3 sm:top-4 right-3 sm:right-5 rtl:right-auto rtl:left-3 sm:rtl:left-5 z-50 flex items-center gap-2">
+        <button
+          type="button"
+          onClick={() => setIsMenuUploadOpen(true)}
+          className="bg-white text-[#430000] hover:bg-white/90 font-tech font-bold text-xs px-3 sm:px-3.5 py-1.5 sketch-pill flex items-center gap-1.5 transition-all select-none shadow-xl active:scale-95 cursor-pointer"
+        >
+          <span className="hidden xs:inline">Try Demo</span>
+          <span className="xs:hidden">Demo</span>
+        </button>
+
         <div id="lang-dropdown" className="relative">
           <button
             type="button"
@@ -322,12 +333,13 @@ export default function App() {
               >
                 {t.hero.ctaPrimary}
               </a>
-              <a
-                href="#demo"
-                className="sketch-btn-outline bg-white/10 hover:bg-white/20 text-white px-6 sm:px-8 py-3 sm:py-3.5 transition-all text-center"
+              <button
+                type="button"
+                onClick={() => setIsMenuUploadOpen(true)}
+                className="sketch-btn-outline bg-white/10 hover:bg-white/20 text-white px-6 sm:px-8 py-3 sm:py-3.5 transition-all text-center flex items-center justify-center gap-2 cursor-pointer"
               >
-                {t.hero.ctaSecondary}
-              </a>
+                <span>{t.hero.ctaSecondary} (Try Demo)</span>
+              </button>
             </div>
           </div>
 
@@ -352,7 +364,9 @@ export default function App() {
         {/* Bouncing Scroll Cue */}
         <div className="hidden lg:flex absolute bottom-2 sm:bottom-3 left-1/2 -translate-x-1/2 flex-col items-center gap-0.5 text-white/50 animate-bounce pointer-events-none text-xs font-tech">
           <span className="text-[10px] uppercase tracking-wider">Scroll</span>
-          <span>↓</span>
+          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+          </svg>
         </div>
       </section>
 
@@ -924,26 +938,27 @@ export default function App() {
                 >
                   {t.waitlist.submitBtn}
                 </button>
-                <a
-                  href="#demo"
-                  className="sketch-btn-outline bg-white/10 hover:bg-white/20 text-white font-bold text-xs sm:text-sm py-3 px-5 text-center transition-all active:scale-[0.98] flex items-center justify-center gap-1.5"
+                <button
+                  type="button"
+                  onClick={() => setIsMenuUploadOpen(true)}
+                  className="sketch-btn-outline bg-white/10 hover:bg-white/20 text-white font-bold text-xs sm:text-sm py-3 px-5 text-center transition-all active:scale-[0.98] flex items-center justify-center gap-1.5 cursor-pointer"
                 >
-                  <span>⚡</span>
-                  <span>{t.waitlist.demoBtn}</span>
-                </a>
+                  <span>{t.waitlist.demoBtn} (Upload Menu)</span>
+                </button>
               </div>
             </form>
           )}
 
           {/* Quick link to live demo below the form */}
           <div className="mt-3.5 text-center">
-            <a
-              href="#demo"
-              className="inline-flex items-center gap-1.5 text-xs text-white/80 hover:text-white underline underline-offset-4 transition-colors font-tech group"
+            <button
+              type="button"
+              onClick={() => setIsMenuUploadOpen(true)}
+              className="inline-flex items-center gap-1.5 text-xs text-white/80 hover:text-white underline underline-offset-4 transition-colors font-tech group cursor-pointer bg-transparent border-none"
             >
-              <span>👀 Want to experience the interactive table first?</span>
-              <span className="font-bold group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5 transition-transform">{t.waitlist.demoBtn} ↑</span>
-            </a>
+              <span>Want to upload your menu & test the AI table?</span>
+              <span className="font-bold">{t.waitlist.demoBtn}</span>
+            </button>
           </div>
         </div>
 
@@ -969,6 +984,16 @@ export default function App() {
           </div>
         </footer>
       </section>
+
+      {/* 8. INSTANT MENU UPLOAD & INGESTION DEMO MODAL */}
+      <MenuUploadDemo
+        isOpen={isMenuUploadOpen}
+        onClose={() => setIsMenuUploadOpen(false)}
+        onLaunchChat={(menuData) => {
+          setIsMenuUploadOpen(false);
+          document.getElementById('demo')?.scrollIntoView({ behavior: 'smooth' });
+        }}
+      />
 
     </div>
   );
