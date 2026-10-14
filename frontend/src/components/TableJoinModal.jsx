@@ -56,47 +56,11 @@ export default function TableJoinModal({ isOpen, tableId = '12', cafeName = 'For
         {/* Content */}
         <div className="p-5 space-y-4">
           
-          {/* Persona Quick Chips */}
-          <div>
-            <label className="block text-[11px] font-bold uppercase tracking-wider text-white/80 mb-2">
-              ⚡ 1-Click Demo Persona:
-            </label>
-            <div className="grid grid-cols-2 gap-2">
-              {DEMO_PERSONAS.map((p) => {
-                const isSelected = selectedPersona === p.name;
-                return (
-                  <button
-                    key={p.name}
-                    type="button"
-                    onClick={() => handleSelectPersona(p)}
-                    className={`p-2.5 rounded-xl border text-left transition-all ${
-                      isSelected
-                        ? 'bg-white text-[#430000] border-white shadow-lg scale-[1.02]'
-                        : 'bg-white/5 border-white/20 hover:bg-white/10 text-white'
-                    }`}
-                  >
-                    <div className="flex items-center justify-between">
-                      <span className="font-brand font-bold text-sm">
-                        {p.badge} {p.name}
-                      </span>
-                      <span className={`text-[9px] px-1.5 py-0.5 rounded ${isSelected ? 'bg-[#430000] text-white' : 'bg-white/20 text-white/90'}`}>
-                        {p.role}
-                      </span>
-                    </div>
-                    <p className={`text-[10px] mt-1 leading-tight line-clamp-1 ${isSelected ? 'text-[#430000]/80' : 'text-white/60'}`}>
-                      {p.desc}
-                    </p>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Custom Name Input */}
-          <form onSubmit={handleSubmit} className="space-y-4 pt-1">
+          {/* Custom Name Input (Primary) */}
+          <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-[11px] font-bold uppercase tracking-wider text-white/80 mb-1.5">
-                Or Enter Your First Name:
+              <label className="block text-xs font-bold uppercase tracking-wider text-white mb-1.5">
+                Enter Your First Name:
               </label>
               <input
                 type="text"
@@ -105,26 +69,59 @@ export default function TableJoinModal({ isOpen, tableId = '12', cafeName = 'For
                   setCustomName(e.target.value);
                   setSelectedPersona(null);
                 }}
-                placeholder="e.g. Aryan, Priya, Alex..."
-                className="w-full bg-white/10 border border-white/30 rounded-xl px-3.5 py-2.5 text-sm font-tech text-white placeholder-white/40 focus:outline-none focus:border-white focus:bg-white/15 transition-all"
+                placeholder="e.g. Aryan, Priya, Rohan..."
+                className="w-full bg-white/10 border-2 border-white/40 focus:border-white rounded-xl px-3.5 py-2.5 text-sm font-tech text-white placeholder-white/40 focus:outline-none focus:bg-white/15 transition-all"
                 autoFocus
               />
+            </div>
+
+            {/* Suggested Quick Names (Optional) */}
+            <div>
+              <label className="block text-[10px] font-bold uppercase tracking-wider text-white/60 mb-1.5">
+                Or pick a quick name:
+              </label>
+              <div className="grid grid-cols-2 gap-2">
+                {DEMO_PERSONAS.map((p) => {
+                  const isSelected = selectedPersona === p.name;
+                  return (
+                    <button
+                      key={p.name}
+                      type="button"
+                      onClick={() => handleSelectPersona(p)}
+                      className={`p-2 rounded-lg border text-left transition-all ${
+                        isSelected
+                          ? 'bg-white text-[#430000] border-white shadow-md'
+                          : 'bg-white/5 border-white/20 hover:bg-white/10 text-white'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="font-brand font-bold text-xs">
+                          {p.badge} {p.name}
+                        </span>
+                        <span className={`text-[8px] px-1 py-0.2 rounded ${isSelected ? 'bg-[#430000] text-white' : 'bg-white/20 text-white/90'}`}>
+                          {p.role}
+                        </span>
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
 
             {/* Enter Button */}
             <button
               type="submit"
               disabled={!customName.trim() || isSubmitting}
-              className="w-full sketch-btn-white py-3 px-4 text-sm font-bold shadow-xl disabled:opacity-50 flex items-center justify-center gap-2 cursor-pointer"
+              className="w-full sketch-btn-white py-3 px-4 text-xs font-bold shadow-xl disabled:opacity-50 flex items-center justify-center gap-2 cursor-pointer mt-2"
             >
               {isSubmitting ? (
                 <>
-                  <span className="inline-block w-4 h-4 border-2 border-[#430000] border-t-transparent rounded-full animate-spin" />
-                  <span>Joining Table Room...</span>
+                  <span className="inline-block w-3.5 h-3.5 border-2 border-[#430000] border-t-transparent rounded-full animate-spin" />
+                  <span>Entering Table Room...</span>
                 </>
               ) : (
                 <>
-                  <span>Enter Table Room</span>
+                  <span>Join Table {tableId}</span>
                   <span>→</span>
                 </>
               )}

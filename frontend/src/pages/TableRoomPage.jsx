@@ -12,7 +12,8 @@ export default function TableRoomPage() {
   const [activeDiners, setActiveDiners] = useState([]);
   const [isJoinModalOpen, setIsJoinModalOpen] = useState(false);
   const [targetBudget, setTargetBudget] = useState(2000);
-  const [currentSpent, setCurrentSpent] = useState(1080);
+  const [currentSpent, setCurrentSpent] = useState(0);
+  const [cartCount, setCartCount] = useState(0);
   const [activeTab, setActiveTab] = useState('chat'); // 'chat' | 'menu' | 'split'
   const [menuItems, setMenuItems] = useState([]);
   const [loadingMenu, setLoadingMenu] = useState(true);
@@ -200,9 +201,11 @@ export default function TableRoomPage() {
           >
             <span>🍽️</span>
             <span>Menu & Live Cart</span>
-            <span className="bg-white text-[#430000] font-bold text-[10px] px-1.5 py-0.2 rounded-full">
-              3
-            </span>
+            {cartCount > 0 && (
+              <span className="bg-white text-[#430000] font-bold text-[10px] px-1.5 py-0.2 rounded-full">
+                {cartCount}
+              </span>
+            )}
           </button>
 
           <button
@@ -248,30 +251,49 @@ export default function TableRoomPage() {
           {activeTab === 'chat' && (
             <div className="flex-1 flex flex-col justify-between space-y-4">
               <div className="space-y-3">
-                {/* Captain Aryan Welcome */}
-                <div className="flex items-start gap-2.5">
-                  <div className="w-7 h-7 rounded-full bg-white/20 border border-white/30 flex items-center justify-center text-xs font-bold text-white shrink-0">
-                    👑
+                
+                {/* Dynamic Joined Diner Message */}
+                {currentDiner && (
+                  <div className="flex items-start gap-2.5">
+                    <div className="w-7 h-7 rounded-full bg-white/20 border border-white/30 flex items-center justify-center text-xs font-bold text-white shrink-0">
+                      {currentDiner.is_captain ? '👑' : '👤'}
+                    </div>
+                    <div className="bg-white/10 rounded-2xl rounded-tl-none p-3 border border-white/20 max-w-[85%]">
+                      <p className="text-[10px] font-bold text-white/90 mb-0.5">
+                        {currentDiner.name} {currentDiner.is_captain ? '(Table Captain)' : ''}
+                      </p>
+                      <p className="text-xs text-white">
+                        {currentDiner.is_captain
+                          ? `Joined Table ${tableId} as Table Captain 👑. Setting our target budget to ₹${targetBudget.toLocaleString()}.`
+                          : `Joined Table ${tableId}! Ready to order.`}
+                      </p>
+                    </div>
                   </div>
-                  <div className="bg-white/10 rounded-2xl rounded-tl-none p-3 border border-white/20 max-w-[85%]">
-                    <p className="text-[10px] font-bold text-white/90 mb-0.5">Aryan (Captain)</p>
-                    <p className="text-xs text-white">
-                      Hey everyone! I joined Table {tableId}. Let’s keep it around ₹2,000 total. What is everyone craving?
-                    </p>
-                  </div>
-                </div>
+                )}
 
                 {/* Ambient AI Card */}
                 <div className="bg-[#430000]/80 border-2 border-white/40 rounded-xl p-3 max-w-[90%] shadow-lg">
                   <div className="flex items-center gap-2 text-xs font-bold text-white mb-1">
                     <span>✨</span>
                     <span>Ambient AI Concierge</span>
-                    <span className="text-[9px] bg-white/20 px-1.5 py-0.2 rounded font-normal">Listening</span>
+                    <span className="text-[9px] bg-white/20 px-1.5 py-0.2 rounded font-normal">Active</span>
                   </div>
                   <p className="text-xs text-white/90">
-                    Welcome to Forkcast! I am quietly monitoring your table banter. Ask me for recommendations, dietary options, or tag <code className="bg-white/20 px-1 rounded text-white">@AI</code> anytime!
+                    Welcome to Forkcast Table {tableId}! I passively monitor group banter to find dishes that fit everyone&apos;s diet and budget. Tag <code className="bg-white/20 px-1 rounded text-white">@AI</code> or ask for food recommendations anytime!
                   </p>
                 </div>
+
+                {/* Single Diner Info / Empty State Guide */}
+                {activeDiners.length <= 1 && (
+                  <div className="bg-white/5 border border-dashed border-white/20 rounded-xl p-3 text-center space-y-1">
+                    <p className="text-xs font-bold text-white/90">
+                      You are currently the only diner at Table {tableId}
+                    </p>
+                    <p className="text-[10px] text-white/60">
+                      To test collaborative dining, open this link in an incognito window or have a friend scan the Table QR code.
+                    </p>
+                  </div>
+                )}
               </div>
 
               {/* Chat Input Bar */}
