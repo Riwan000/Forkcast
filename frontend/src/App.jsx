@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import { translations } from './translations';
 import { forkcastLogo } from './logoData';
 import { hospitalitySketch } from './hospitalityData';
 import { cafeSketch } from './cafeData';
 import TopoField from './components/ui/topo-field';
 import MenuUploadDemo from './components/MenuUploadDemo';
+import TableRoomPage from './pages/TableRoomPage';
 
 // Hook to crop transparent padding tightly so the fork & knife artwork fills its frame and displays big
 function useCroppedLogo(src) {
@@ -206,7 +208,8 @@ function LivingMascot({ src }) {
   );
 }
 
-export default function App() {
+function LandingPage() {
+  const navigate = useNavigate();
   const [lang, setLang] = useState('en');
   const [langOpen, setLangOpen] = useState(false);
   const [isMenuUploadOpen, setIsMenuUploadOpen] = useState(false);
@@ -760,6 +763,18 @@ export default function App() {
             </div>
 
           </div>
+
+          {/* 1-Click Launch Live Table Room for Demo Presentations */}
+          <div className="mt-3.5 text-center">
+            <button
+              onClick={() => navigate('/demo-cafe/table/12')}
+              className="sketch-btn-white px-4 py-2 text-xs font-bold shadow-xl inline-flex items-center gap-1.5 hover:scale-105 active:scale-95 transition-all cursor-pointer"
+            >
+              <span>🚀</span>
+              <span>Launch Live Table 12 Room (Surface 2) →</span>
+            </button>
+          </div>
+
         </div>
       </div>
     </div>
@@ -991,10 +1006,23 @@ export default function App() {
         onClose={() => setIsMenuUploadOpen(false)}
         onLaunchChat={(menuData) => {
           setIsMenuUploadOpen(false);
-          document.getElementById('demo')?.scrollIntoView({ behavior: 'smooth' });
+          const tableNum = menuData?.table_number || 12;
+          const cafeSlug = menuData?.cafe_id || 'demo-cafe';
+          navigate(`/${cafeSlug}/table/${tableNum}`);
         }}
       />
 
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/:cafeId/table/:tableId" element={<TableRoomPage />} />
+      <Route path="/table/:tableId" element={<TableRoomPage />} />
+      <Route path="*" element={<LandingPage />} />
+    </Routes>
   );
 }

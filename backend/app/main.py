@@ -5,6 +5,7 @@ from app.config import settings
 from app.db.database import init_db
 from app.routers.menu import router as menu_router
 from app.routers.qr import router as qr_router
+from app.routers.room import router as room_router
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -31,6 +32,7 @@ app.add_middleware(
 # Register routers
 app.include_router(menu_router)
 app.include_router(qr_router)
+app.include_router(room_router)
 
 @app.get("/")
 def read_root():

@@ -6,6 +6,7 @@ from app.db.database import SessionLocal
 from app.services.menu_service import MenuService
 from app.services.menu_db_service import MenuDatabaseService
 from app.services.qr_service import QRService
+from app.services.room_service import RoomService
 
 @lru_cache()
 def get_menu_service() -> MenuService:
@@ -30,5 +31,10 @@ def get_menu_db_service(
 def get_qr_service() -> QRService:
     """Dependency provider factory for QRService."""
     return QRService()
+
+@lru_cache()
+def get_room_service() -> RoomService:
+    """Dependency provider factory for RoomService (in-memory live rooms)."""
+    return RoomService()
 
 
